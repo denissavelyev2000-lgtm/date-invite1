@@ -25,7 +25,7 @@
       max-width: 380px;
       background: rgba(255, 255, 255, 0.12);
       border-radius: 20px;
-      padding: 32px 24px 40px;
+      padding: 28px 22px 36px;
       text-align: center;
       backdrop-filter: blur(12px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
@@ -38,15 +38,30 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    .photo {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(255,255,255,0.4);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     h1 {
-      font-size: 26px;
-      margin-bottom: 12px;
+      font-size: 24px;
+      margin-bottom: 14px;
     }
 
     p {
-      font-size: 18px;
+      font-size: 17px;
       line-height: 1.5;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
 
     .buttons {
@@ -69,10 +84,6 @@
       font-weight: 600;
     }
 
-    .yes:active {
-      transform: scale(0.96);
-    }
-
     .no {
       position: absolute;
       background: #ff7676;
@@ -84,7 +95,7 @@
     }
 
     .footer {
-      margin-top: 20px;
+      margin-top: 18px;
       font-size: 13px;
       opacity: 0.7;
     }
@@ -101,32 +112,33 @@
     }
 
     @keyframes fly {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-110vh) scale(1.6);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-110vh) scale(1.6); opacity: 0; }
     }
   </style>
 </head>
 <body>
 
   <div class="card">
+
+    <!-- ФОТО -->
+    <div class="photo">
+      <img src="photo.jpg" alt="Фото">
+    </div>
+
     <h1>Любимая 💙</h1>
 
     <p>
-      Приглашаю тебя на свидание<br>
-      <strong>21 февраля</strong><br>
-      <strong>18:00</strong><br>
+      В честь 14 февраля я хочу подарить нам вечер вместе<br>
+      в одном уютном месте.<br>
+      <strong>21 февраля в 18:00</strong>
     </p>
 
     <div class="buttons" id="area">
       <button class="yes" onclick="accept()">Согласна 💙</button>
       <button class="no" id="noBtn">Мне надо подумать 🤔</button>
     </div>
+
 
   <script>
     const restaurantLink = "https://yandex.by/maps/-/CPA3qJI6";
@@ -136,15 +148,8 @@
     function moveButton() {
       const areaRect = area.getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
-
-      const maxX = areaRect.width - btnRect.width;
-      const maxY = areaRect.height - btnRect.height;
-
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
+      noBtn.style.left = Math.random() * (areaRect.width - btnRect.width) + "px";
+      noBtn.style.top  = Math.random() * (areaRect.height - btnRect.height) + "px";
     }
 
     noBtn.addEventListener("touchstart", moveButton);
@@ -154,24 +159,15 @@
       const heart = document.createElement("div");
       heart.className = "heart";
       heart.innerText = "💙";
-
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.fontSize = (16 + Math.random() * 24) + "px";
-      heart.style.animationDuration = (2 + Math.random() * 2) + "s";
-
       document.body.appendChild(heart);
-
       setTimeout(() => heart.remove(), 3000);
     }
 
     function accept() {
-      for (let i = 0; i < 20; i++) {
-        setTimeout(createHeart, i * 100);
-      }
-
-      setTimeout(() => {
-        window.location.href = restaurantLink;
-      }, 1200);
+      for (let i = 0; i < 20; i++) setTimeout(createHeart, i * 100);
+      setTimeout(() => window.location.href = restaurantLink, 1200);
     }
   </script>
 
