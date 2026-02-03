@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Приглашение 💙</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e3c72, #2a5298);
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .card {
+      width: 92%;
+      max-width: 380px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 32px 24px 40px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: fadeIn 1s ease;
+      z-index: 2;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 160px;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      font-size: 18px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .yes {
+      background: linear-gradient(135deg, #00e0c6, #00bfa5);
+      color: #003c35;
+      font-weight: 600;
+    }
+
+    .yes:active {
+      transform: scale(0.96);
+    }
+
+    .no {
+      position: absolute;
+      background: #ff7676;
+      color: #fff;
+      left: 50%;
+      top: 90px;
+      transform: translateX(-50%);
+      width: 100%;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 13px;
+      opacity: 0.7;
+    }
+
+    /* 💙 Сердечки */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      animation: fly 3s linear forwards;
+      opacity: 0.9;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes fly {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.6);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Любимая 💙</h1>
+
+    <p>
+      Приглашаю тебя на свидание<br>
+      <strong>21 февраля</strong><br>
+      <strong>18:00</strong><br>
+    </p>
+
+    <div class="buttons" id="area">
+      <button class="yes" onclick="accept()">Согласна 💙</button>
+      <button class="no" id="noBtn">Мне надо подумать 🤔</button>
+    </div>
+
+  <script>
+    const restaurantLink = "https://yandex.by/maps/-/CPA3qJI6";
+    const noBtn = document.getElementById("noBtn");
+    const area = document.getElementById("area");
+
+    function moveButton() {
+      const areaRect = area.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = areaRect.width - btnRect.width;
+      const maxY = areaRect.height - btnRect.height;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener("touchstart", moveButton);
+    noBtn.addEventListener("mouseenter", moveButton);
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💙";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (16 + Math.random() * 24) + "px";
+      heart.style.animationDuration = (2 + Math.random() * 2) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 3000);
+    }
+
+    function accept() {
+      for (let i = 0; i < 20; i++) {
+        setTimeout(createHeart, i * 100);
+      }
+
+      setTimeout(() => {
+        window.location.href = restaurantLink;
+      }, 1200);
+    }
+  </script>
+
+</body>
+</html>
